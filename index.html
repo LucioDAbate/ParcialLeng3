@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario Simple</title>
+</head>
+<body>
+
+  <h1>Formulario</h1>
+
+  <form onsubmit="return validar()">
+    <h5>Apellido:</h5>
+    <input type="text" id="apellido">
+
+    <h5>Nombre:</h5>
+    <input type="text" id="nombre">
+
+    <h5>DNI:</h5>
+    <input type="text" id="dni" maxlength="8">
+
+    <h5>Fecha de Nacimiento:</h5>
+    <input type="date" id="nac">
+
+    <h5>Email:</h5>
+    <input type="email" id="mail">
+
+    <h5></h5>
+    <input type="submit" value="Enviar">
+  </form>
+
+  <h5></h5>
+  <button onclick="pregunta()">Preguntas-Respuestas</button>
+
+  <h4>Sus respuestas fueron:</h4>
+  <input type="text" id="respuestas" readonly>
+
+  <script>
+    function validar() {
+      let apellido = document.getElementById("apellido").value;
+      let nombre = document.getElementById("nombre").value;
+      let dni = document.getElementById("dni").value;
+      let fecha = document.getElementById("nac").value;
+      let mail = document.getElementById("mail").value;
+
+      for (let i = 0; i < apellido.length; i++) {
+        if (!isNaN(apellido[i]) && apellido[i] != " ") {
+          alert("El apellido no debe tener números");
+          return false;
+        }
+      }
+      for (let i = 0; i < nombre.length; i++) {
+        if (!isNaN(nombre[i]) && nombre[i] != " ") {
+          alert("El nombre no debe tener números");
+          return false;
+        }
+      }
+      if (isNaN(dni) || dni.length != 8) {
+        alert("El DNI debe tener solo números y 8 cifras");
+        return false;
+      }
+      if (fecha == "") {
+        alert("Debe ingresar una fecha");
+        return false;
+      }
+      let año = parseInt(fecha.substring(0, 4));
+      if (año <= 2006) {
+        alert("La fecha debe ser posterior al año 2006");
+        return false;
+      }
+      if (mail.indexOf("@") == -1 || mail.indexOf(".") == -1) {
+        alert("El mail debe tener @ y .");
+        return false;
+      }
+      alert("Formulario enviado correctamente");
+      return true;
+    }
+
+    function pregunta() {
+      let preg1 = prompt("cual es tu nacionalidad?");
+      let preg2 = prompt("cual es tu color favorito?");
+      let preg3 = prompt("como se llama tu mascota?");
+      let preg4 = prompt("vives solo?");
+      document.getElementById("respuestas").value = preg1 + "-" + preg2 + "-" + preg3 + "-" + preg4;
+    }
+  </script>
+
+</body>
+</html>
